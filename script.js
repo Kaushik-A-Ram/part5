@@ -1,25 +1,27 @@
-// creating movie class
-class Movie {
-  constructor(movieId, title, year, rating) {
-    this.movieId = movieId;
-    this.title = title;
-    this.year = year;
-    this.rating = rating;
-  }
+// creating the empty array to store the objects from form
+const movieDatabase = [];
+
+const addMovie = (ev) => {
+    ev.preventDefault();
+    let movie = {
+        id: document.getElementById('id').value,
+        title: document.getElementById('title').value,
+        year: document.getElementById('year').value,
+        rating: document.getElementById('rating').value
+    }
+
+    // show added object in console
+    console.log('added', movie);
+
+    // push to array called movieDatabase
+    movieDatabase.push(movie);
+
+    // reset form
+    document.querySelector('form').reset();
+    
 }
+// saving to localStorage
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submit').addEventListener('click', addMovie);
+});
 
-
-const id = document.getElementById("#id");
-const title = document.getElementById("#title");
-const year = document.getElementById("#year");
-const rating = document.getElementById("#rating");
-const form = document.querySelector("#movieForm");
-
-form.addEventListener("submit", e=> {
-  e.preventDefault();
-  const formData = new FormData(e.target)
-  const id = new FormData();
-  const title = new FormData();
-  const year = new FormData();
-  const rating = new FormData();
-})
