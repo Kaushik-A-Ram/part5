@@ -16,22 +16,36 @@ class Movie {
 function renderMovieList() {
   const list = document.getElementById("movieList");
   list.innerHTML = "";
-  movieDatabase.forEach((movie) => {
+  if (movieDatabase.length === 0) {
     const li = document.createElement("li");
-    li.textContent = `${movie.id} - ${movie.title} (${movie.year}) - Rating: ${movie.rating}`;
+    li.textContent = "No movies in the database.";
+    li.style.fontStyle = "italic";
     list.appendChild(li);
-  });
+  } else {
+    movieDatabase.forEach((movie) => {
+      const li = document.createElement("li");
+      li.textContent = `${movie.id} - ${movie.title} (${movie.year}) - Rating: ${movie.rating}`;
+      list.appendChild(li);
+    });
+  }
 }
 
 // function to render search results
 function renderSearchResults(filteredResults) {
   const resultsList = document.getElementById("resultsList");
   resultsList.innerHTML = "";
-  filteredResults.forEach((movie) => {
+  if (filteredResults.length === 0) {
     const li = document.createElement("li");
-    li.textContent = `${movie.id} - ${movie.title} (${movie.year}) - Rating: ${movie.rating}`;
+    li.textContent = "result: 0";
+    li.style.fontStyle = "italic";
     resultsList.appendChild(li);
-  });
+  } else {
+    filteredResults.forEach((movie) => {
+      const li = document.createElement("li");
+      li.textContent = `${movie.id} - ${movie.title} (${movie.year}) - Rating: ${movie.rating}`;
+      resultsList.appendChild(li);
+    });
+  }
 }
 
 // function to search the database
@@ -71,8 +85,30 @@ const addMovie = (ev) => {
   document.querySelector("form").reset();
 };
 
+// Sort A-Z by Title
+function sortAZ() {
+  movieDatabase.sort((a, b) => a.title.localeCompare(b.title));
+  renderMovieList();
+}
+
+// Sort Z-A by Title
+function sortZA() {
+  movieDatabase.sort((a, b) => b.title.localeCompare(a.title));
+  renderMovieList();
+}
+
+// Best Movies: Sort by Rating Z-A (highest to lowest)
+function sortBestMovies() {
+  movieDatabase.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+  renderMovieList();
+}8
+
 // add event listeners to the buttons
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("submit").addEventListener("click", addMovie);
   document.getElementById("searchBtn").addEventListener("click", searchDatabase);
+  document.getElementById("sortAZ").addEventListener("click", sortAZ);
+  document.getElementById("sortZA").addEventListener("click", sortZA);
+  document.getElementById("bestMovies").addEventListener("click", sortBestMovies);
+  renderMovieList(); // Always show the movie list, even if empty
 });
