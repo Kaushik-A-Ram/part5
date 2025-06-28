@@ -4,7 +4,7 @@ const movieDatabase = [];
 // movie class
 class Movie {
   constructor(id, title, year, rating) {
-    // assining the values to the class
+    // assigning the values to the class
     (this.id = id),
       (this.title = title),
       (this.year = year),
@@ -112,3 +112,4 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("bestMovies").addEventListener("click", sortBestMovies);
   renderMovieList(); // Always show the movie list, even if empty
 });
+
